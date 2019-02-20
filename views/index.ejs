@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body class="container">
+    <h1 class="jumbotron text-center"><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="row">
+      <div class="col-xs-6 inline">
+        <form action="/" method="POST">
+          <div class="input-group">
+            <input type="text" name="username" class="form-control"
+                    placeholder="Enter a GitHub Username">
+            <span class="input-group-btn">
+              <button class="btn btn-success"
+                type="submit">Go!</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-6 inline">
+        <form action="/search-results" method="POST">
+          <div class="input-group">
+            <input type="text" name="usernamePart" class="form-control"
+            placeholder="Enter part of a username...">
+            <span class="input-group-btn">
+              <button class="btn btn-success"
+              type="submit">Go!</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+        <Br><br>
+        <hr>
+    <div class="row col-xs-8 col-xs-offset-2" width="50%">
+      <% if (userData) { %>
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">
+          <img src="<%= userData.avatar_url %>"
+              class="img-circle" width="300px">
+          <h3><%= userData.login %></h3>
+        </div>
+      </div>
+      <div class="panel-body">
+          <h3>Repos:</h3>
+          <!-- new stuff below -->
+          <div class="list-group">
+              <% userData.repos.forEach(function(repo) { %>
+                  <a href="<%= repo.html_url %>" target="_blank"
+                      class="list-group-item">
+                      <%= repo.name %>
+                  </a>
+              <% }); %>
+          </div>
+          <!-- new stuff above -->
+      </div>
+    <% } else { %>
+      <h3 class="text-center text-info">
+        Submit a GitHub username!
+      </h3>
+    <% } %>
+   </div>
+  </body>
+</html>

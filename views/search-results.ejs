@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body class="container">
+    <h1 class="jumbotron text-center"><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="row">
+      <div class="col-xs-6 inline">
+        <form action="/" method="POST">
+          <div class="input-group">
+            <input type="text" name="username" class="form-control"
+                    placeholder="Enter a GitHub Username">
+            <span class="input-group-btn">
+              <button class="btn btn-success"
+                type="submit">Go!</button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-6 inline">
+        <form action="/search-results" method="POST">
+          <div class="input-group">
+            <input type="text" name="usernamePart" class="form-control"
+            placeholder="Enter part of a username...">
+            <span class="input-group-btn">
+              <button class="btn btn-success"
+              type="submit">Go!</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <% if (users) { %>
+    <% console.log("**"+ users.items.length) %>
+    <div class="panel-body">
+        <h3>Users Matching <%= usernamePart %>:</h3>
+        <!-- new stuff below -->
+        <div class="list-group">
+            <% users.items.forEach(function(user) { %>
+                <a href="<%= user.url %>" target="_blank"
+                    class="list-group-item">
+                    <%= user.login %>
+                </a>
+            <% }); %>
+        </div>
+        <!-- new stuff above -->
+    </div>
+    <% } else { %>
+      <h3 class="text-center text-info">
+        Submit a GitHub username!
+      </h3>
+    <% } %>
+  </div>
